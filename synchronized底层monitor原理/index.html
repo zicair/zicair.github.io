@@ -6,17 +6,38 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://zicair.github.io">
-  <title>Tag: Hexo | Zicair&#39;s Blog</title>
+  <title>synchronized底层monitor原理 | Zicair&#39;s Blog</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zicair&#39;s Blog">
-<meta property="og:url" content="https://zicair.github.io/tags/Hexo/index.html">
+  <meta name="description" content="synchronized底层使用monitor来控制锁的活动。了解monitor中的各个属性值的含义，锁的竞争流程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="synchronized底层monitor原理">
+<meta property="og:url" content="https://zicair.github.io/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="Zicair&#39;s Blog">
+<meta property="og:description" content="synchronized底层使用monitor来控制锁的活动。了解monitor中的各个属性值的含义，锁的竞争流程。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713223837588.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713224950456.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713231543477.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713232235386.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713232302247.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713233845928.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713233808086.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713233919806.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713234011498.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713234402744.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713234423895.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713234455316.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713234643397.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713235504342.png">
+<meta property="article:published_time" content="2020-07-13T14:23:06.000Z">
+<meta property="article:modified_time" content="2020-07-29T09:29:58.000Z">
 <meta property="article:author" content="zicair">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Synchronized">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713223837588.png">
   
     <link rel="alternative" href="/atom.xml" title="Zicair&#39;s Blog" type="application/atom+xml">
   
@@ -173,292 +194,335 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-synchronized底层monitor原理" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/Hexo%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD/" class="archive-article-date">
-        <time datetime="2020-07-28T09:26:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-28</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/Hexo%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD/">Hexo博客备份</a>
-	
+    <h1 class="article-title" itemprop="name">
+      synchronized底层monitor原理
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/" class="archive-article-date">
+        <time datetime="2020-07-13T14:23:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-13</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.8k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">6分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>synchronized底层使用monitor来控制锁的活动。了解monitor中的各个属性值的含义，锁的竞争流程。</p>
+<a id="more"></a>
+
+<h1 id="synchronized底层monitor原理"><a href="#synchronized底层monitor原理" class="headerlink" title="synchronized底层monitor原理"></a>synchronized底层monitor原理</h1><h3 id="1-monitor监视器锁"><a href="#1-monitor监视器锁" class="headerlink" title="1. monitor监视器锁"></a>1. monitor监视器锁</h3><p>无论是synchronized代码块还是synchronized方法，其线程安全的语义实现最终依赖于monitor。</p>
+<p>在HotSpot虚拟机中，monitor是由ObjectMonitor实现的。源码由C++实现，位于HotSpot虚拟机源码ObjectMonitor.hpp文件中(src/share/vm/runtime/objectMonitor.hpp)。ObjectMonitor主要数据结构如下：</p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713223837588.png" alt="image-20200713223837588"></p>
+<ul>
+<li>_owner: 初始时为NULL。当有线程占有该monitor时，owner标记为该线程的唯一标识。当线程释放monitor时，owner又恢复为NULL。owner是一个临界资源，JVM是通过CAS操作来保证其线程安全。</li>
+<li>_cxq: 竞争队列，所有请求锁的线程首先会被放在这个队列中(单向列表)。cxq是一个临界资源，JVM通过CAS原子指令来修改cxq队列。修改前cxq的旧值填入了node的next字段，cxq指向新值(新线程)。因此cxq是一个后进先出的stack（栈）。</li>
+<li>_EntryList：cxq队列中有资格成为候选资源的线程会被移动到该队列中。 </li>
+<li>_WaitSet：因为调用wait方法而被阻塞的线程会被放在该队列中。</li>
+</ul>
+<hr>
+<p>每一个Java对象都可以与一个监视器monitor关联，我们可以把它理解成为一把锁，当一个线程想要执行一段被synchronized圈起来的同步方法或者代码块时，该线程得先获取到synchronized修饰的对象对应的monitor。</p>
+<p>我们的Java代码里不会显示地去创造这么一个monitor对象，我们也无需创建，事实上可以这么理解： monitor并不是随着对象创建而创建的。我们是通过synchronized修饰符告诉JVM需要为我们的某个对象创建关联的monitor对象。每个线程都存在两个ObjectMonitor对象列表，分别为free和used列表。 同时JVM中也维护着global locklist。当线程需要ObjectMonitor对象时，首先从线程自身的free表中申请，若存在则使用若不存在则从global list中申请。</p>
+<p>ObjectMonitor的数据结构、以及关系：</p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713224950456.png" alt="image-20200713224950456"></p>
+<h3 id="2-monitor竞争"><a href="#2-monitor竞争" class="headerlink" title="2. monitor竞争"></a>2. monitor竞争</h3><ol>
+<li><p>执行monitorenter时，会调用InterpreterRuntime.cpp (src/share/vm/interpreter/interpreterRuntime.cpp) 的 InterpreterRuntime::monitorenter函数。具体代码可参见HotSpot源码。</p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713231543477.png" alt="image-20200713231543477"></p>
+</li>
+<li><p>对于重量级锁，monitorenter函数中会调用 ObjectSynchronizer::slow_enter</p>
+</li>
+<li><p>最终调用 ObjectMonitor::enter（src/share/vm/runtime/objectMonitor.cpp），源码如下：</p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713232235386.png" alt="image-20200713232235386"></p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713232302247.png" alt="image-20200713232302247"></p>
+</li>
+</ol>
+<p>此处省略锁的自旋优化等操作。以上代码的具体流程概括如下：</p>
+<ul>
+<li>通过CAS尝试把monitor的owner字段设置为当前线程。</li>
+<li>如果设置之前的owner指向当前线程，说明当前线程再次进入monitor，即重入锁，执行 recursions ++ ，记录重入的次数。</li>
+<li>如果当前线程是第一次进入该monitor，设置recursions为1，_owner为当前线程，该线程成功获得锁并返回。</li>
+<li>如果获取锁失败，则等待锁的释放。使用EnterI()方法</li>
+</ul>
+<h3 id="3-monitor等待"><a href="#3-monitor等待" class="headerlink" title="3. monitor等待"></a>3. monitor等待</h3><p>竞争失败等待调用的是ObjectMonitor对象的EnterI方法（src/share/vm/runtime/objectMonitor.cpp），源码如下所示：</p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713233845928.png" alt="image-20200713233845928"></p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713233808086.png" alt="image-20200713233808086"></p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713233919806.png" alt="image-20200713233919806"></p>
+<p>当该线程被唤醒时，会从挂起的点继续执行，通过 ObjectMonitor::TryLock 尝试获取锁，TryLock方<br>法实现如下：  </p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713234011498.png" alt="image-20200713234011498"></p>
+<p>以上代码的具体流程概括如下：</p>
+<ul>
+<li>当前线程被封装成ObjectWaiter对象node，状态设置成ObjectWaiter::TS_CXQ。</li>
+<li>在for循环中，通过CAS把node节点push到_cxq列表中，同一时刻可能有多个线程把自己的node<br>节点push到cxq列表中。</li>
+<li>node节点push到cxq列表之后，通过自旋尝试获取锁，如果还是没有获取到锁，则通过park将当<br>前线程挂起，等待被唤醒。</li>
+<li>当该线程被唤醒时，会从挂起的点继续执行，通过 ObjectMonitor::TryLock 尝试获取锁  </li>
+</ul>
+<h3 id="4-monitor释放"><a href="#4-monitor释放" class="headerlink" title="4. monitor释放"></a>4. monitor释放</h3><p>当某个持有锁的线程执行完同步代码块时，会进行锁的释放，给其它线程机会执行同步代码，在<br>HotSpot中，通过退出monitor的方式实现锁的释放，并通知被阻塞的线程，具体实现位于<br>ObjectMonitor的exit方法中。（src/share/vm/runtime/objectMonitor.cpp），源码：  </p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713234402744.png" alt="image-20200713234402744"></p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713234423895.png" alt="image-20200713234423895"></p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713234455316.png" alt="image-20200713234455316"></p>
+<ul>
+<li>退出同步代码块时会让recursions减1，当recursions的值减为0时，说明线程释放了锁。</li>
+<li>根据不同的策略（由QMode指定），从cxq或EntryList中获取头节点，通过ObjectMonitor::ExitEpilog 方法唤醒该节点封装的线程，唤醒操作最终由unpark完成：  </li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713234643397.png" alt="image-20200713234643397"></p>
+<p>被唤醒的线程，会回到 void ATTR ObjectMonitor::EnterI (TRAPS) 的第600行，继续执行monitor<br>的竞争。</p>
+<h3 id="5-monitor是重量级锁"><a href="#5-monitor是重量级锁" class="headerlink" title="5. monitor是重量级锁"></a>5. monitor是重量级锁</h3><p>可以看到ObjectMonitor的函数调用中会涉及到Atomic::cmpxchg_ptr，Atomic::inc_ptr等内核函数，<br>执行同步代码块，没有竞争到锁的对象会park()被挂起，竞争到锁的线程会unpark()唤醒。这个时候就<br>会存在操作系统用户态和内核态的转换，这种切换会消耗大量的系统资源。所以synchronized是Java语<br>言中是一个重量级(Heavyweight)的操作。<br>要了解用户态和内核态需要先了解Linux系统的体系架构：  </p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/image-20200713235504342.png" alt="image-20200713235504342"></p>
+<p>从上图可以看出，Linux操作系统的体系架构分为：用户空间（应用程序的活动空间）和内核。<br><strong>内核：</strong>本质上可以理解为一种软件，控制计算机的硬件资源，并提供上层应用程序运行的环境。<br><strong>用户空间：</strong>上层应用程序活动的空间。应用程序的执行必须依托于内核提供的资源，包括CPU资源、存<br>储资源、I/O资源等。<br><strong>系统调用：</strong>为了使上层应用能够访问到这些资源，内核必须为上层应用提供访问的接口：即系统调用。  </p>
+<p>所有进程初始都运行于用户空间，此时即为用户运行状态（简称：用户态）；但是当它调用系统调用执<br>行某些操作时，例如 I/O调用，此时需要陷入内核中运行，我们就称进程处于内核运行态（或简称为内<br>核态）。 系统调用的过程可以简单理解为：</p>
+<ol>
+<li>用户态程序将一些数据值放在寄存器中， 或者使用参数创建一个堆栈， 以此表明需要操作系统提<br>供的服务。</li>
+<li>用户态程序执行系统调用。</li>
+<li>CPU切换到内核态，并跳到位于内存指定位置的指令。</li>
+<li>系统调用处理器(system call handler)会读取程序放入内存的数据参数，并执行程序请求的服务。</li>
+<li>系统调用完成后，操作系统会重置CPU为用户态并返回系统调用的结果。</li>
+</ol>
+<p>由此可见用户态切换至内核态需要传递许多变量，同时内核还需要保护好用户态在切换时的一些寄存器<br>值、变量等，以备内核态切换回用户态。这种切换就带来了大量的系统资源消耗，这就是在<br>synchronized未优化之前，效率低的原因。  </p>
+
+    
+
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          zicair
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://zicair.github.io/synchronized底层monitor原理/" title="synchronized底层monitor原理" target="_blank">https://zicair.github.io/synchronized底层monitor原理/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Synchronized</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Hexo//" class="article-tag-list-link color5">Hexo</a>
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java/Synchronized//" class="article-tag-list-link color3">Synchronized</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://zicair.github.io/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/%E5%B0%86%E5%8D%9A%E5%AE%A2%E6%90%AC%E8%87%B3CSDN/" class="archive-article-date">
-        <time datetime="2020-07-27T03:23:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-27</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          CAS及ssynchronized优化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/mysql%E7%AC%94%E8%AE%B0day3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql笔记day3</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/%E5%B0%86%E5%8D%9A%E5%AE%A2%E6%90%AC%E8%87%B3CSDN/">将博客搬至CSDN</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Hexo//" class="article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">synchronized底层monitor原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-monitor%E7%9B%91%E8%A7%86%E5%99%A8%E9%94%81"><span class="toc-number">1.0.1.</span> <span class="toc-text">1. monitor监视器锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-monitor%E7%AB%9E%E4%BA%89"><span class="toc-number">1.0.2.</span> <span class="toc-text">2. monitor竞争</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-monitor%E7%AD%89%E5%BE%85"><span class="toc-number">1.0.3.</span> <span class="toc-text">3. monitor等待</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-monitor%E9%87%8A%E6%94%BE"><span class="toc-number">1.0.4.</span> <span class="toc-text">4. monitor释放</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-monitor%E6%98%AF%E9%87%8D%E9%87%8F%E7%BA%A7%E9%94%81"><span class="toc-number">1.0.5.</span> <span class="toc-text">5. monitor是重量级锁</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/typora+picgo%E6%90%AD%E5%BB%BAgithub%E5%9B%BE%E5%BA%8A/" class="archive-article-date">
-        <time datetime="2020-05-31T06:04:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-31</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/typora+picgo%E6%90%AD%E5%BB%BAgithub%E5%9B%BE%E5%BA%8A/">typora+picgo搭建github图床</a>
-	
-    </h1>
-  
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Hexo//" class="article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/win10%E9%85%8D%E7%BD%AEHexo/" class="archive-article-date">
-        <time datetime="2020-04-07T14:04:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
 
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/win10%E9%85%8D%E7%BD%AEHexo/">win10配置Hexo</a>
-	
-    </h1>
-  
+<!-- 《utteranc评论：基于github issue的评论系统 -->
+<div>
+    <section id="comments" class="comments">
+      <style>
+        .utterances{max-width: 95.5%;}
+      </style>
+        <script src="https://utteranc.es/client.js"
+                repo="zicair/zicair.github.io"
+                issue-term="title"
+                theme="github-light"
+                crossorigin="anonymous"
+                async>
+        </script>
+</script>
+  </section>
+</div>
+<!-- utteranc评论》 -->
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Hexo//" class="article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/hello-world/" class="archive-article-date">
-        <time datetime="2020-04-06T13:01:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-06</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/hello-world/">Hello World</a>
-	
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Hexo//" class="article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
 
 
           </div>
@@ -499,9 +563,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

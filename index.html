@@ -188,7 +188,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2020/07/31/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E8%BF%90%E8%A1%8C)/">SpringBoot启动原理(运行)</a>
+	  <a class="article-title" href="/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E8%BF%90%E8%A1%8C)/">SpringBoot启动原理(运行)</a>
 	
     </h1>
   
@@ -196,7 +196,7 @@
 
   
   
-<a href="/2020/07/31/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E8%BF%90%E8%A1%8C)/" class="archive-article-date">
+<a href="/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E8%BF%90%E8%A1%8C)/" class="archive-article-date">
         <time datetime="2020-07-31T05:34:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-31</time>
 </a>
 
@@ -209,105 +209,9 @@
   
   <div class="article-entry" itemprop="articleBody">
     
+    <p>通过断点调试，阅读源码查看SpringBoot的启动原理，启动过程分为创建对象和运行。这里介绍启动时，SpringBoot的创建出对象后执行run方法的运行过程。</p>
     
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tags</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/categorie//" class="article-tag-list-link color5">categorie</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/31/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E8%BF%90%E8%A1%8C)/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SpringBoot启动原理(创建)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/07/29/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E5%88%9B%E5%BB%BA)/">SpringBoot启动原理(创建)</a>
-	
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/07/29/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E5%88%9B%E5%BB%BA)/" class="archive-article-date">
-        <time datetime="2020-07-29T07:31:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-29</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>通过断点调试，阅读源码查看SpringBoot的启动原理</p>
-    
-    <a class="article-more-a" href="/2020/07/29/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E5%88%9B%E5%BB%BA)/#more">more >></a>
+    <a class="article-more-a" href="/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E8%BF%90%E8%A1%8C)/#more">more >></a>
     
     
 
@@ -345,7 +249,106 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/29/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E5%88%9B%E5%BB%BA)/">展开全文 >></a>
+      <a class="article-more-a" href="/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E8%BF%90%E8%A1%8C)/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-SpringBoot启动原理(创建)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E5%88%9B%E5%BB%BA)/">SpringBoot启动原理(创建)</a>
+	
+    </h1>
+  
+
+
+  
+  
+<a href="/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E5%88%9B%E5%BB%BA)/" class="archive-article-date">
+        <time datetime="2020-07-29T07:31:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-29</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>通过断点调试，阅读源码查看SpringBoot的启动原理，启动过程分为创建对象和运行。这里介绍启动时，SpringBoot的创建对象的过程。</p>
+    
+    <a class="article-more-a" href="/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E5%88%9B%E5%BB%BA)/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SpringBoot</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/SpringBoot//" class="article-tag-list-link color1">SpringBoot</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E5%88%9B%E5%BB%BA)/">展开全文 >></a>
     </p>
     
 
@@ -383,7 +386,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2020/07/28/Hexo%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD/">Hexo博客备份</a>
+	  <a class="article-title" href="/Hexo%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD/">Hexo博客备份</a>
 	
     </h1>
   
@@ -391,7 +394,7 @@
 
   
   
-<a href="/2020/07/28/Hexo%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD/" class="archive-article-date">
+<a href="/Hexo%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD/" class="archive-article-date">
         <time datetime="2020-07-28T09:26:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-28</time>
 </a>
 
@@ -406,7 +409,7 @@
     
     <p>部署博客时提交的是生成后的静态网页，而源文件是在我们使用的电脑上，可以使用Git工具备份这些博客文件和设置文件，并将图床搭配进来。</p>
     
-    <a class="article-more-a" href="/2020/07/28/Hexo%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD/#more">more >></a>
+    <a class="article-more-a" href="/Hexo%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD/#more">more >></a>
     
     
 
@@ -444,7 +447,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/28/Hexo%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD/">展开全文 >></a>
+      <a class="article-more-a" href="/Hexo%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD/">展开全文 >></a>
     </p>
     
 
@@ -482,7 +485,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2020/07/27/%E5%B0%86%E5%8D%9A%E5%AE%A2%E6%90%AC%E8%87%B3CSDN/">将博客搬至CSDN</a>
+	  <a class="article-title" href="/%E5%B0%86%E5%8D%9A%E5%AE%A2%E6%90%AC%E8%87%B3CSDN/">将博客搬至CSDN</a>
 	
     </h1>
   
@@ -490,7 +493,7 @@
 
   
   
-<a href="/2020/07/27/%E5%B0%86%E5%8D%9A%E5%AE%A2%E6%90%AC%E8%87%B3CSDN/" class="archive-article-date">
+<a href="/%E5%B0%86%E5%8D%9A%E5%AE%A2%E6%90%AC%E8%87%B3CSDN/" class="archive-article-date">
         <time datetime="2020-07-27T03:23:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-27</time>
 </a>
 
@@ -505,7 +508,7 @@
     
     <p> 将Hexo博客同步到CSDN。注册CSDN时怎么自定义域名，怎么同步，分享同步博客到csdn的小技巧。</p>
     
-    <a class="article-more-a" href="/2020/07/27/%E5%B0%86%E5%8D%9A%E5%AE%A2%E6%90%AC%E8%87%B3CSDN/#more">more >></a>
+    <a class="article-more-a" href="/%E5%B0%86%E5%8D%9A%E5%AE%A2%E6%90%AC%E8%87%B3CSDN/#more">more >></a>
     
     
 
@@ -543,7 +546,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/27/%E5%B0%86%E5%8D%9A%E5%AE%A2%E6%90%AC%E8%87%B3CSDN/">展开全文 >></a>
+      <a class="article-more-a" href="/%E5%B0%86%E5%8D%9A%E5%AE%A2%E6%90%AC%E8%87%B3CSDN/">展开全文 >></a>
     </p>
     
 
@@ -581,7 +584,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2020/07/25/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">动态代理模式</a>
+	  <a class="article-title" href="/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">动态代理模式</a>
 	
     </h1>
   
@@ -589,7 +592,7 @@
 
   
   
-<a href="/2020/07/25/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
+<a href="/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
         <time datetime="2020-07-24T17:19:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-25</time>
 </a>
 
@@ -604,7 +607,7 @@
     
     <p>代理模式可分为静态代理和动态代理，什么是代理模式以及代理模式怎么使用？</p>
     
-    <a class="article-more-a" href="/2020/07/25/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/#more">more >></a>
+    <a class="article-more-a" href="/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/#more">more >></a>
     
     
 
@@ -650,7 +653,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/25/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">展开全文 >></a>
+      <a class="article-more-a" href="/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">展开全文 >></a>
     </p>
     
 
@@ -688,7 +691,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2020/07/14/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/">CAS及ssynchronized优化</a>
+	  <a class="article-title" href="/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/">CAS及ssynchronized优化</a>
 	
     </h1>
   
@@ -696,7 +699,7 @@
 
   
   
-<a href="/2020/07/14/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/" class="archive-article-date">
+<a href="/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/" class="archive-article-date">
         <time datetime="2020-07-14T01:47:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-14</time>
 </a>
 
@@ -711,7 +714,7 @@
     
     <p>CAS作用和原理，ssynchronized锁的优化: 偏向锁、轻量级锁、自旋锁、锁消除、锁粗化</p>
     
-    <a class="article-more-a" href="/2020/07/14/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/#more">more >></a>
+    <a class="article-more-a" href="/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/#more">more >></a>
     
     
 
@@ -757,7 +760,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/14/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/">展开全文 >></a>
+      <a class="article-more-a" href="/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/">展开全文 >></a>
     </p>
     
 
@@ -795,7 +798,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2020/07/13/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/">synchronized底层monitor原理</a>
+	  <a class="article-title" href="/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/">synchronized底层monitor原理</a>
 	
     </h1>
   
@@ -803,7 +806,7 @@
 
   
   
-<a href="/2020/07/13/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/" class="archive-article-date">
+<a href="/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/" class="archive-article-date">
         <time datetime="2020-07-13T14:23:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-13</time>
 </a>
 
@@ -818,7 +821,7 @@
     
     <p>synchronized底层使用monitor来控制锁的活动。了解monitor中的各个属性值的含义，锁的竞争流程。</p>
     
-    <a class="article-more-a" href="/2020/07/13/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/#more">more >></a>
+    <a class="article-more-a" href="/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/#more">more >></a>
     
     
 
@@ -864,7 +867,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/13/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/">展开全文 >></a>
+      <a class="article-more-a" href="/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/">展开全文 >></a>
     </p>
     
 
@@ -902,7 +905,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day3/">mysql笔记day3</a>
+	  <a class="article-title" href="/mysql%E7%AC%94%E8%AE%B0day3/">mysql笔记day3</a>
 	
     </h1>
   
@@ -910,7 +913,7 @@
 
   
   
-<a href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day3/" class="archive-article-date">
+<a href="/mysql%E7%AC%94%E8%AE%B0day3/" class="archive-article-date">
         <time datetime="2020-06-23T07:46:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-23</time>
 </a>
 
@@ -925,7 +928,7 @@
     
     <p>【笔记】内容：应用优化、查询缓存优化、内存管理优化、参数调整、锁</p>
     
-    <a class="article-more-a" href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day3/#more">more >></a>
+    <a class="article-more-a" href="/mysql%E7%AC%94%E8%AE%B0day3/#more">more >></a>
     
     
 
@@ -963,7 +966,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day3/">展开全文 >></a>
+      <a class="article-more-a" href="/mysql%E7%AC%94%E8%AE%B0day3/">展开全文 >></a>
     </p>
     
 
@@ -1001,7 +1004,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day2/">mysql笔记day2</a>
+	  <a class="article-title" href="/mysql%E7%AC%94%E8%AE%B0day2/">mysql笔记day2</a>
 	
     </h1>
   
@@ -1009,7 +1012,7 @@
 
   
   
-<a href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day2/" class="archive-article-date">
+<a href="/mysql%E7%AC%94%E8%AE%B0day2/" class="archive-article-date">
         <time datetime="2020-06-23T07:23:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-23</time>
 </a>
 
@@ -1024,7 +1027,7 @@
     
     <p>【笔记】内容：存储引擎介绍、优化SQL、索引的使用、SQL的语句优化</p>
     
-    <a class="article-more-a" href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day2/#more">more >></a>
+    <a class="article-more-a" href="/mysql%E7%AC%94%E8%AE%B0day2/#more">more >></a>
     
     
 
@@ -1062,7 +1065,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day2/">展开全文 >></a>
+      <a class="article-more-a" href="/mysql%E7%AC%94%E8%AE%B0day2/">展开全文 >></a>
     </p>
     
 
@@ -1100,7 +1103,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day1/">mysql笔记day1</a>
+	  <a class="article-title" href="/mysql%E7%AC%94%E8%AE%B0day1/">mysql笔记day1</a>
 	
     </h1>
   
@@ -1108,7 +1111,7 @@
 
   
   
-<a href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day1/" class="archive-article-date">
+<a href="/mysql%E7%AC%94%E8%AE%B0day1/" class="archive-article-date">
         <time datetime="2020-06-22T16:10:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-23</time>
 </a>
 
@@ -1123,7 +1126,7 @@
     
     <p>【笔记】内容：索引、视图、存储过程和函数、触发器。</p>
     
-    <a class="article-more-a" href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day1/#more">more >></a>
+    <a class="article-more-a" href="/mysql%E7%AC%94%E8%AE%B0day1/#more">more >></a>
     
     
 
@@ -1161,7 +1164,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day1/">展开全文 >></a>
+      <a class="article-more-a" href="/mysql%E7%AC%94%E8%AE%B0day1/">展开全文 >></a>
     </p>
     
 
@@ -1307,6 +1310,10 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
@@ -1319,19 +1326,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tags</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
               </li>
              
               <li class="article-tag-list-item">

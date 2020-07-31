@@ -6,17 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://zicair.github.io">
-  <title>Tag: Hexo | Zicair&#39;s Blog</title>
+  <title>CAS及ssynchronized优化 | Zicair&#39;s Blog</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zicair&#39;s Blog">
-<meta property="og:url" content="https://zicair.github.io/tags/Hexo/index.html">
+  <meta name="description" content="CAS作用和原理，ssynchronized锁的优化: 偏向锁、轻量级锁、自旋锁、锁消除、锁粗化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CAS及ssynchronized优化">
+<meta property="og:url" content="https://zicair.github.io/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/index.html">
 <meta property="og:site_name" content="Zicair&#39;s Blog">
+<meta property="og:description" content="CAS作用和原理，ssynchronized锁的优化: 偏向锁、轻量级锁、自旋锁、锁消除、锁粗化">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/image-20200714100246436.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/image-20200714100403011.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/image-20200714101817624.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/image-20200714102611238.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/image-20200714105802613.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/image-20200714114312320.png">
+<meta property="article:published_time" content="2020-07-14T01:47:28.000Z">
+<meta property="article:modified_time" content="2020-07-29T09:29:58.000Z">
 <meta property="article:author" content="zicair">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Synchronized">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/image-20200714100246436.png">
   
     <link rel="alternative" href="/atom.xml" title="Zicair&#39;s Blog" type="application/atom+xml">
   
@@ -173,292 +186,351 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-CAS及ssynchronized优化" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/Hexo%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD/" class="archive-article-date">
-        <time datetime="2020-07-28T09:26:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-28</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/Hexo%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD/">Hexo博客备份</a>
-	
+    <h1 class="article-title" itemprop="name">
+      CAS及ssynchronized优化
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/" class="archive-article-date">
+        <time datetime="2020-07-14T01:47:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-14</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">4.4k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">15分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>CAS作用和原理，ssynchronized锁的优化: 偏向锁、轻量级锁、自旋锁、锁消除、锁粗化</p>
+<a id="more"></a>
+
+<h1 id="CAS及ssynchronized优化"><a href="#CAS及ssynchronized优化" class="headerlink" title="CAS及ssynchronized优化"></a>CAS及ssynchronized优化</h1><h2 id="1-CAS作用和原理"><a href="#1-CAS作用和原理" class="headerlink" title="1. CAS作用和原理"></a>1. CAS作用和原理</h2><p>创建五个线程，对类的变量自增：</p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/image-20200714100246436.png" alt="image-20200714100246436"></p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/image-20200714100403011.png" alt="image-20200714100403011"></p>
+<p><strong>CAS：</strong>Compare And Swap(比较相同再交换)。是现代CPU广泛支持的一种对内存中的共享数据进行操作的一种特殊指令。<br><strong>CAS的作用：</strong>CAS可以将比较和交换转换为原子操作，这个原子操作直接由CPU保证。CAS可以保证共享变量赋值时的原子操作。CAS操作依赖3个值：内存中的值V，旧值X，新值B，如果旧值X等于内存中的值V，就将新值B保存到内存中。<br><strong>CAS原理：</strong>通过AtomicInteger的源码可以看到，Unsafe类提供了原子操作。<br><strong>Unsafe：</strong>类使Java拥有了像C语言的指针一样操作内存空间的能力，同时也带来了指针的问题。过度的使Unsafe类会使得出错的几率变大，因此Java官方并不建议使用的，官方文档也几乎没有。Unsafe对象不能直接调用，只能通过反射获得。 </p>
+<p>CAS和volatile实现无锁并发 ：</p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/image-20200714101817624.png" alt="image-20200714101817624"></p>
+<p>AtomicInteger的incrementAndGet()调用过程：</p>
+<hr>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/image-20200714102611238.png" alt="image-20200714102611238"></p>
+<p><strong>乐观锁和悲观锁</strong></p>
+<ul>
+<li><p>悲观锁从悲观的角度出发：<br>总是假设最坏的情况，每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这<br>样别人想拿这个数据就会阻塞。因此synchronized我们也将其称之为悲观锁。JDK中的ReentrantLock<br>也是一种悲观锁。性能较差！</p>
+</li>
+<li><p>乐观锁从乐观的角度出发:<br>总是假设最好的情况，每次去拿数据的时候都认为别人不会修改，就算改了也没关系，再重试即可。所<br>以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去修改这个数据，如何没有人修改则更<br>新，如果有人修改则重试。<br>CAS这种机制我们也可以将其称之为乐观锁。综合性能较好！  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CAS获取共享变量时，为了保证该变量的可见性，需要使用volatile修饰。结合CAS和volatile可以</span><br><span class="line">实现无锁并发，适用于竞争不激烈、多核CPU的场景下。</span><br><span class="line">1. 因为没有使用 synchronized，所以线程不会陷入阻塞，这是效率提升的因素之一。</span><br><span class="line">2. 但如果竞争激烈，可以想到重试必然频繁发生，反而效率会受影响。  </span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="2-Java对象的布局"><a href="#2-Java对象的布局" class="headerlink" title="2. Java对象的布局"></a>2. Java对象的布局</h2><p><strong>锁的升级过程：</strong>无锁 &gt; 偏向锁 &gt; 轻量级锁 &gt; 重量级锁 。这些锁的状态存储在java对象的布局中。</p>
+<p>在JVM中，对象在内存中的布局分为三块区域：对象头、实例数据和对齐填充。如下图所示：  </p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/image-20200714105802613.png" alt="image-20200714105802613"></p>
+<h3 id="2-1-对象头"><a href="#2-1-对象头" class="headerlink" title="2.1 对象头"></a>2.1 对象头</h3><p>当一个线程尝试访问synchronized修饰的代码块时，它首先要获得锁，那么这个锁到底存在哪里呢？是<br>存在锁对象的对象头中的。<br>HotSpot采用instanceOopDesc和arrayOopDesc来描述对象头，arrayOopDesc对象用来描述数组类<br>型。instanceOopDesc的定义的在Hotspot源码的 instanceOop.hpp 文件中，另外，arrayOopDesc<br>的定义对应 arrayOop.hpp 。  </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">instanceOopDesc</span> :</span> <span class="keyword">public</span> oopDesc &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="comment">// aligned header size.</span></span><br><span class="line">  <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">header_size</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">sizeof</span>(instanceOopDesc)/HeapWordSize; &#125;</span><br><span class="line">  <span class="comment">// If compressed, the offset of the fields of the instance may not be aligned.</span></span><br><span class="line">  <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">base_offset_in_bytes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// offset computation code breaks if UseCompressedClassPointers</span></span><br><span class="line">    <span class="comment">// only is true</span></span><br><span class="line">    <span class="keyword">return</span> (UseCompressedOops &amp;&amp; UseCompressedClassPointers) ?</span><br><span class="line">            klass_gap_offset_in_bytes() :</span><br><span class="line">            <span class="keyword">sizeof</span>(instanceOopDesc);</span><br><span class="line">  &#125; </span><br><span class="line">  <span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">contains_field_offset</span><span class="params">(<span class="keyword">int</span> offset, <span class="keyword">int</span> nonstatic_field_size)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> base_in_bytes = base_offset_in_bytes();</span><br><span class="line">    <span class="keyword">return</span> (offset &gt;= base_in_bytes &amp;&amp;</span><br><span class="line">            (offset-base_in_bytes) &lt; nonstatic_field_size * heapOopSize);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>从instanceOopDesc代码中可以看到 instanceOopDesc继承自oopDesc，oopDesc的定义载Hotspot<br>源码中的 oop.hpp 文件中。  </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">oopDesc</span> &#123;</span></span><br><span class="line">  <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">VMStructs</span>;</span></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="keyword">volatile</span> markOop _mark;</span><br><span class="line">  <span class="keyword">union</span> _metadata &#123;</span><br><span class="line">    Klass* _klass;</span><br><span class="line">    narrowKlass _compressed_klass;</span><br><span class="line">  &#125; _metadata;</span><br><span class="line">  <span class="comment">// Fast access to barrier set. Must be initialized.</span></span><br><span class="line">  <span class="keyword">static</span> BarrierSet* _bs;</span><br><span class="line">  <span class="comment">// 省略其他代码</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在普通实例对象中，oopDesc的定义包含两个成员，分别是 <code>_mark</code> 和 <code>_metadata</code><br>_mark 表示对象标记、属于markOop类型，也就是接下来要讲解的Mark World，它记录了对象和锁有<br>关的信息<br>_metadata 表示类元信息，类元信息存储的是对象指向它的类元数据(Klass)的首地址，其中Klass表示<br>普通指针、 _compressed_klass 表示压缩类指针。<br>对象头由两部分组成，一部分用于存储自身的运行时数据，称之为 Mark Word，另外一部分是类型指<br>针，及对象指向它的类元数据的指针  </p>
+<h4 id="Mark-Word"><a href="#Mark-Word" class="headerlink" title="Mark Word"></a>Mark Word</h4><p>Mark Word用于存储对象自身的运行时数据，如哈希码（HashCode）、GC分代年龄、锁状态标志、<br>线程持有的锁、偏向线程ID、偏向时间戳等等，占用内存大小与虚拟机位长一致。</p>
+<h4 id="klass-pointer"><a href="#klass-pointer" class="headerlink" title="klass pointer"></a>klass pointer</h4><p>这一部分用于存储对象的类型指针，该指针指向它的类元数据，JVM通过这个指针确定对象是哪个类的<br>实例。该指针的位长度为JVM的一个字大小，即32位的JVM为32位，64位的JVM为64位。 如果应用的对<br>象过多，使用64位的指针将浪费大量内存，统计而言，64位的JVM将会比32位的JVM多耗费50%的内<br>存。为了节约内存可以使用选项 -XX:+UseCompressedOops 开启指针压缩，其中，oop即ordinary<br>object pointer普通对象指针。开启该选项后，下列指针将压缩至32位：</p>
+<ol>
+<li>每个Class的属性指针（即静态变量）</li>
+<li>每个对象的属性指针（即对象变量）</li>
+<li>普通对象数组的每个元素指针</li>
+</ol>
+<p>当然，也不是所有的指针都会压缩，一些特殊类型的指针JVM不会优化，比如指向PermGen的Class对<br>象指针(JDK8中指向元空间的Class对象指针)、本地变量、堆栈元素、入参、返回值和NULL指针等。<br>对象头 = Mark Word + 类型指针（未开启指针压缩的情况下）<br>在32位系统中，Mark Word = 4 bytes (32bits)，类型指针 = 4bytes (32bits)，对象头 = 64 bits；  </p>
+<h3 id="2-2-实例数据"><a href="#2-2-实例数据" class="headerlink" title="2.2 实例数据"></a>2.2 实例数据</h3><p>就是类中定义的成员变量。</p>
+<h3 id="2-3-对齐填充"><a href="#2-3-对齐填充" class="headerlink" title="2.3 对齐填充"></a>2.3 对齐填充</h3><p>对齐填充并不是必然存在的，也没有什么特别的意义，他仅仅起着占位符的作用，由于HotSpot VM的自动内存管理系统要求对象起始地址必须是8字节的整数倍，换句话说，就是对象的大小必须是8字节的整数倍。而对象头正好是8字节的倍数，因此，当对象实例数据部分没有对齐时，就需要通过对齐填充来补全。  </p>
+<h2 id="3-偏向锁"><a href="#3-偏向锁" class="headerlink" title="3. 偏向锁"></a>3. 偏向锁</h2><h3 id="3-1-什么是偏向锁"><a href="#3-1-什么是偏向锁" class="headerlink" title="3.1 什么是偏向锁"></a>3.1 什么是偏向锁</h3><p>偏向锁是JDK 6中的重要引进，因为HotSpot作者经过研究实践发现，在大多数情况下，锁不仅不存在多线程竞争，而且总是由同一线程多次获得，为了让线程获得锁的代价更低，引进了偏向锁。<br>偏向锁的“偏”，是这个锁会偏向于第一个获得它的线程，会在对象头存储锁偏向的线程ID，以后该线程进入和退出同步块时只需要检查是否为偏向锁、锁标志位以及ThreadID即可。因此偏向锁是在只有一个线程执行同步块时进一步提高性能，适用于一个线程反复获得同一锁的情况。偏向锁可以提高带有同步但无竞争的程序性能。  </p>
+<p>不过一旦出现多个线程竞争时必须撤销偏向锁，所以撤销偏向锁消耗的性能必须小于之前节省下来的<br>CAS原子操作的性能消耗，不然就得不偿失。</p>
+<h3 id="3-2-偏向锁原理"><a href="#3-2-偏向锁原理" class="headerlink" title="3.2 偏向锁原理"></a>3.2 偏向锁原理</h3><p>当线程第一次访问同步块并获取锁时，偏向锁处理流程如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 虚拟机将会把对象头中的标志位设为“01”，即偏向模式。</span><br><span class="line">2. 同时使用CAS操作把获取到这个锁的线程的ID记录在对象的Mark Word之中 ，如果CAS操作</span><br><span class="line">成功，持有偏向锁的线程以后每次进入这个锁相关的同步块时，虚拟机都可以不再进行任何</span><br><span class="line">同步操作，偏向锁的效率高。</span><br></pre></td></tr></table></figure>
+
+<p>  <img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/image-20200714114312320.png" alt="image-20200714114312320"></p>
+<h3 id="3-3-偏向锁的撤销"><a href="#3-3-偏向锁的撤销" class="headerlink" title="3.3 偏向锁的撤销"></a>3.3 偏向锁的撤销</h3><ol>
+<li>偏向锁的撤销动作必须等待全局安全点</li>
+<li>暂停拥有偏向锁的线程，判断锁对象是否处于被锁定状态</li>
+<li>撤销偏向锁，恢复到无锁（标志位为 <strong>01</strong>）或轻量级锁（标志位为 <strong>00</strong>）的状态</li>
+</ol>
+<p>偏向锁在Java 6之后是默认启用的，但在应用程序启动几秒钟之后才激活，可以使用 <code>-XX:BiasedLockingStartupDelay=0</code> 参数关闭延迟，如果确定应用程序中所有锁通常情况下处于竞争状态，可以通过 <code>XX:-UseBiasedLocking=false</code> 参数关闭偏向锁。    </p>
+<h2 id="4-轻量级锁"><a href="#4-轻量级锁" class="headerlink" title="4. 轻量级锁"></a>4. 轻量级锁</h2><h3 id="4-1-什么是轻量级锁"><a href="#4-1-什么是轻量级锁" class="headerlink" title="4.1 什么是轻量级锁"></a>4.1 什么是轻量级锁</h3><p>轻量级锁是JDK 6之中加入的新型锁机制，它名字中的“轻量级”是相对于使用monitor的传统锁而言的，因此传统的锁机制就称为“重量级”锁。首先需要强调一点的是，轻量级锁并不是用来代替重量级锁的。<br><strong>引入轻量级锁的目的：</strong>在多线程交替执行同步块的情况下，尽量避免重量级锁引起的性能消耗，但是如果多个线程在同一时刻进入临界区，会导致轻量级锁膨胀升级重量级锁，所以轻量级锁的出现并非是要替代重量级锁。</p>
+<h3 id="4-2-轻量级锁原理"><a href="#4-2-轻量级锁原理" class="headerlink" title="4.2 轻量级锁原理"></a>4.2 轻量级锁原理</h3><p>当关闭偏向锁功能或者多个线程竞争偏向锁导致偏向锁升级为轻量级锁，则会尝试获取轻量级锁，其步骤如下： </p>
+<p><strong>获取锁</strong>  </p>
+<ol>
+<li>判断当前对象是否处于无锁状态（hashcode、0、01），如果是，则JVM首先将在当前线程的栈帧中建立一个名为锁记录（Lock Record）的空间，用于存储锁对象目前的Mark Word的拷贝（官方把这份拷贝加了一个Displaced前缀，即Displaced Mark Word），将对象的Mark Word复制到栈帧中的Lock Record中，将Lock Reocrd中的owner指向当前对象。</li>
+<li>JVM利用CAS操作尝试将对象的Mark Word更新为指向Lock Record的指针，如果成功表示竞争到<br>锁，则将锁标志位变成00，执行同步操作。</li>
+<li>如果失败则判断当前对象的Mark Word是否指向当前线程的栈帧，如果是则表示当前线程已经持<br>有当前对象的锁，则直接执行同步代码块；否则只能说明该锁对象已经被其他线程抢占了，这时轻量级锁需要膨胀为重量级锁，锁标志位变成10，后面等待的线程将会进入阻塞状态。</li>
+</ol>
+<p><strong>释放锁</strong><br>轻量级锁的释放也是通过CAS操作来进行的，主要步骤如下：</p>
+<ol>
+<li>取出在获取轻量级锁保存在Displaced Mark Word中的数据。</li>
+<li>用CAS操作将取出的数据替换当前对象的Mark Word中，如果成功，则说明释放锁成功。    </li>
+<li>如果CAS操作替换失败，说明有其他线程尝试获取该锁，则需要将轻量级锁需要膨胀升级为重量级锁。</li>
+</ol>
+<h2 id="5-锁自旋"><a href="#5-锁自旋" class="headerlink" title="5. 锁自旋"></a>5. 锁自旋</h2><h3 id="5-1-什么是锁自旋"><a href="#5-1-什么是锁自旋" class="headerlink" title="5.1 什么是锁自旋"></a>5.1 什么是锁自旋</h3><p>前面我们讨论monitor实现锁的时候，知道monitor会阻塞和唤醒线程，线程的阻塞和唤醒需要CPU从用户态转为核心态，频繁的阻塞和唤醒对CPU来说是一件负担很重的工作，这些操作给系统的并发性能带来了很大的压力。同时，虚拟机的开发团队也注意到在许多应用上，共享数据的锁定状态只会持续很短的一段时间，为了这段时间阻塞和唤醒线程并不值得。如果物理机器有一个以上的处理器，能让两个或以上的线程同时并行执行，我们就可以让后面请求锁的那个线程“稍等一下”，但不放弃处理器的执行时间，看看持有锁的线程是否很快就会释放锁。为了让线程等待，我们只需让线程执行一个忙循环(自旋) , 这项技术就是所谓的自旋锁。  </p>
+<p>自旋锁在JDK 1.4.2中就已经引入 ，只不过默认是关闭的，可以使用-XX:+UseSpinning参数来开启，在JDK 6中 就已经改为默认开启了。自旋等待不能代替阻塞，且先不说对处理器数量的要求，自旋等待本身虽然避免了线程切换的开销，但它是要占用处理器时间的，因此，如果锁被占用的时间很短，自旋等待的效果就会非常好，反之，如果锁被占用的时间很长。那么自旋的线程只会白白消耗处理器资源，而不会做任何有用的工作，反而会带来性 能上的浪费。因此，自旋等待的时间必须要有一定的限度，如果自旋超过了限定的次数仍然没有成功获得锁，就应当使用传统的方式去挂起线程了。自旋次数的默认值是10次，用户可以使用参数-XX : PreBlockSpin来更改。  </p>
+<h3 id="5-2-适应性锁自旋"><a href="#5-2-适应性锁自旋" class="headerlink" title="5.2 适应性锁自旋"></a>5.2 适应性锁自旋</h3><p>在JDK 6中引入了自适应的自旋锁。自适应意味着自旋的时间不再固定了，而是由前一次在同一个锁上的自旋时间及锁的拥有者的状态来决定。如果在同一个锁对象上，自旋等待刚刚成功获得过锁，并且持有锁的线程正在运行中，那么虚拟机就会认为这次自旋也很有可能再次成功，进而它将允许自旋等待持续相对更长的时间，比如100次循环。另外，如果对于某个锁，自旋很少成功获得过，那在以后要获取这个锁时将可能省略掉自旋过程，以避免浪费处理器资源。有了自适应自旋，随着程序运行和性能监控信息的不断完善，虚拟机对程序锁的状况预测就会越来越准确，虛拟机就会变得越来越“聪明”了。  </p>
+<h2 id="6-锁消除"><a href="#6-锁消除" class="headerlink" title="6. 锁消除"></a>6. 锁消除</h2><p>锁消除是指虚拟机即时编译器（JIT）在运行时，对一些代码上要求同步，但是被检测到不可能存在共享数据竞争的锁进行消除。锁消除的主要判定依据来源于逃逸分析的数据支持，如果判断在一段代码中，堆上的所有数据都不会逃逸出去从而被其他线程访问到，那就可以把它们当做栈上数据对待，认为它们是线程私有的，同步加锁自然就无须进行。变量是否逃逸，对于虚拟机来说需要使用数据流分析来确定，但是程序员自己应该是很清楚的，怎么会在明知道不存在数据争用的情况下要求同步呢?实际上有许多同步措施并不是程序员自己加入的，同步的代码在Java程序中的普遍程度也许超过了大部分读者的想象。下面这段非常简单的代码仅仅是输出3个字符串相加的结果，无论是源码字面上还是程序语义上都没有同步。  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        contactString(<span class="string">&quot;aa&quot;</span>, <span class="string">&quot;bb&quot;</span>, <span class="string">&quot;cc&quot;</span>);</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">contactString</span><span class="params">(String s1, String s2, String s3)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> StringBuffer().append(s1).append(s2).append(s3).toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>StringBuffer的append ( ) 是一个同步方法，锁就是this也就是(new StringBuilder())。虚拟机发现它的<br>动态作用域被限制在concatString( )方法内部。也就是说, new StringBuilder()对象的引用永远不会“逃<br>逸”到concatString ( )方法之外，其他线程无法访问到它，因此，虽然这里有锁，但是可以被安全地消除<br>掉，在即时编译之后，这段代码就会忽略掉所有的同步而直接执行了。  </p>
+<h2 id="6-锁粗化"><a href="#6-锁粗化" class="headerlink" title="6. 锁粗化"></a>6. 锁粗化</h2><p>原则上，我们在编写代码的时候，总是推荐将同步块的作用范围限制得尽量小，只在共享数据的实际作<br>用域中才进行同步，这样是为了使得需要同步的操作数量尽可能变小，如果存在锁竞争，那等待锁的线<br>程也能尽快拿到锁。大部分情况下，上面的原则都是正确的，但是如果一系列的连续操作都对同一个对<br>象反复加锁和解锁，甚至加锁操作是出现在循环体中的，那即使没有线程竞争，频繁地进行互斥同步操<br>作也会导致不必要的性能损耗 。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            sb.append(<span class="string">&quot;aa&quot;</span>);</span><br><span class="line">        &#125; </span><br><span class="line">        System.out.println(sb.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="7-平时写代码对synchronized的优化"><a href="#7-平时写代码对synchronized的优化" class="headerlink" title="7. 平时写代码对synchronized的优化"></a><strong>7. 平时写代码对synchronized的优化</strong></h2><ul>
+<li>减少synchronized的范围<br>同步代码块中尽量短，减少同步代码块中代码的执行时间，减少锁的竞争。</li>
+<li>降低synchronized锁的粒度<br>将一个锁拆分为多个锁提高并发度(ashtable锁整个表、ConcurrentHashMap锁列)</li>
+<li>读写分离<br>读取时不加锁，写入和删除时加锁  </li>
+</ul>
+
+    
+
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          zicair
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://zicair.github.io/CAS及ssynchronized优化/" title="CAS及ssynchronized优化" target="_blank">https://zicair.github.io/CAS及ssynchronized优化/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Synchronized</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Hexo//" class="article-tag-list-link color5">Hexo</a>
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java/Synchronized//" class="article-tag-list-link color3">Synchronized</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://zicair.github.io/CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/%E5%B0%86%E5%8D%9A%E5%AE%A2%E6%90%AC%E8%87%B3CSDN/" class="archive-article-date">
-        <time datetime="2020-07-27T03:23:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-27</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          动态代理模式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/synchronized%E5%BA%95%E5%B1%82monitor%E5%8E%9F%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">synchronized底层monitor原理</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/%E5%B0%86%E5%8D%9A%E5%AE%A2%E6%90%AC%E8%87%B3CSDN/">将博客搬至CSDN</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Hexo//" class="article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CAS%E5%8F%8Assynchronized%E4%BC%98%E5%8C%96"><span class="toc-number">1.</span> <span class="toc-text">CAS及ssynchronized优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-CAS%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">1. CAS作用和原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B8%83%E5%B1%80"><span class="toc-number">1.2.</span> <span class="toc-text">2. Java对象的布局</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%AF%B9%E8%B1%A1%E5%A4%B4"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 对象头</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Mark-Word"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">Mark Word</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#klass-pointer"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">klass pointer</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%AE%9E%E4%BE%8B%E6%95%B0%E6%8D%AE"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 实例数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%AF%B9%E9%BD%90%E5%A1%AB%E5%85%85"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3 对齐填充</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%81%8F%E5%90%91%E9%94%81"><span class="toc-number">1.3.</span> <span class="toc-text">3. 偏向锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%81%8F%E5%90%91%E9%94%81"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 什么是偏向锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%81%8F%E5%90%91%E9%94%81%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 偏向锁原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%81%8F%E5%90%91%E9%94%81%E7%9A%84%E6%92%A4%E9%94%80"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 偏向锁的撤销</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81"><span class="toc-number">1.4.</span> <span class="toc-text">4. 轻量级锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E4%BB%80%E4%B9%88%E6%98%AF%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 什么是轻量级锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81%E5%8E%9F%E7%90%86"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 轻量级锁原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E9%94%81%E8%87%AA%E6%97%8B"><span class="toc-number">1.5.</span> <span class="toc-text">5. 锁自旋</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E4%BB%80%E4%B9%88%E6%98%AF%E9%94%81%E8%87%AA%E6%97%8B"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 什么是锁自旋</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E9%80%82%E5%BA%94%E6%80%A7%E9%94%81%E8%87%AA%E6%97%8B"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2 适应性锁自旋</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E9%94%81%E6%B6%88%E9%99%A4"><span class="toc-number">1.6.</span> <span class="toc-text">6. 锁消除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E9%94%81%E7%B2%97%E5%8C%96"><span class="toc-number">1.7.</span> <span class="toc-text">6. 锁粗化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%B9%B3%E6%97%B6%E5%86%99%E4%BB%A3%E7%A0%81%E5%AF%B9synchronized%E7%9A%84%E4%BC%98%E5%8C%96"><span class="toc-number">1.8.</span> <span class="toc-text">7. 平时写代码对synchronized的优化</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/typora+picgo%E6%90%AD%E5%BB%BAgithub%E5%9B%BE%E5%BA%8A/" class="archive-article-date">
-        <time datetime="2020-05-31T06:04:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-31</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/typora+picgo%E6%90%AD%E5%BB%BAgithub%E5%9B%BE%E5%BA%8A/">typora+picgo搭建github图床</a>
-	
-    </h1>
-  
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Hexo//" class="article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/win10%E9%85%8D%E7%BD%AEHexo/" class="archive-article-date">
-        <time datetime="2020-04-07T14:04:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
 
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/win10%E9%85%8D%E7%BD%AEHexo/">win10配置Hexo</a>
-	
-    </h1>
-  
+<!-- 《utteranc评论：基于github issue的评论系统 -->
+<div>
+    <section id="comments" class="comments">
+      <style>
+        .utterances{max-width: 95.5%;}
+      </style>
+        <script src="https://utteranc.es/client.js"
+                repo="zicair/zicair.github.io"
+                issue-term="title"
+                theme="github-light"
+                crossorigin="anonymous"
+                async>
+        </script>
+</script>
+  </section>
+</div>
+<!-- utteranc评论》 -->
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Hexo//" class="article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/hello-world/" class="archive-article-date">
-        <time datetime="2020-04-06T13:01:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-06</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/hello-world/">Hello World</a>
-	
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Hexo//" class="article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
 
 
           </div>
@@ -499,9 +571,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
