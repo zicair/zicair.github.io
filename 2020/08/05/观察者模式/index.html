@@ -6,17 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://zicair.github.io">
-  <title>Tag: mysql | Zicair&#39;s Blog</title>
+  <title>观察者模式 | Zicair&#39;s Blog</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Zicair&#39;s Blog">
-<meta property="og:url" content="https://zicair.github.io/tags/mysql/index.html">
+  <meta name="description" content="观察者模式定义对象间一种一对多的依赖关系，使得每当一个对象改变状态，则所有依赖与他的对象都会得到通知并被自动更新。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="观察者模式">
+<meta property="og:url" content="https://zicair.github.io/2020/08/05/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Zicair&#39;s Blog">
+<meta property="og:description" content="观察者模式定义对象间一种一对多的依赖关系，使得每当一个对象改变状态，则所有依赖与他的对象都会得到通知并被自动更新。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/image-20200805154233327.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/image-20200805160043017.png">
+<meta property="article:published_time" content="2020-08-05T07:18:45.000Z">
+<meta property="article:modified_time" content="2020-08-05T08:56:06.440Z">
 <meta property="article:author" content="zicair">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Design Patterns">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/image-20200805154233327.png">
   
     <link rel="alternative" href="/atom.xml" title="Zicair&#39;s Blog" type="application/atom+xml">
   
@@ -173,242 +182,339 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-观察者模式" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day3/" class="archive-article-date">
-        <time datetime="2020-06-23T07:46:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-23</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day3/">mysql笔记day3</a>
-	
+    <h1 class="article-title" itemprop="name">
+      观察者模式
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2020/08/05/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
+        <time datetime="2020-08-05T07:18:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-05</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.6k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">7分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>观察者模式定义对象间一种一对多的依赖关系，使得每当一个对象改变状态，则所有依赖与他的对象都会得到通知并被自动更新。</p>
+<a id="more"></a>
+
+<h1 id="1-观察者模式的定义"><a href="#1-观察者模式的定义" class="headerlink" title="1. 观察者模式的定义"></a>1. 观察者模式的定义</h1><p>观察者模式又称发布-订阅(Publish/Subscribe)模式。观察者模式定义对象间一种一对多的依赖关系，使得每当一个对象改变状态，则所有依赖与他的对象都会得到通知并被自动更新。这里的一对多分别指被观察者和观察者，其中一个重要的因素就是解耦。也就是将被观察者和观察者进行解耦，使得他们之间的依赖性更小。</p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/image-20200805154233327.png" alt="image-20200805154233327"></p>
+<p>观察者模式主要有一下几个角色：</p>
+<ul>
+<li><p>Subject被观察者</p>
+<p>定义被观察者必须实现的职责，他必须能够动态地增加、取消观察者。他一般是抽象类或者是实现类，仅仅完成作为被观察者必须实现的职责：管理观察者并通知观察者。</p>
+</li>
+<li><p>Observer观察者</p>
+<p>观察者收到消息后，进行update(更新方法)，对接收到的信息处理。</p>
+</li>
+<li><p>ConcreteSubject具体的被观察者</p>
+<p>定义被观察者自己的业务逻辑，同时定义对哪些事件进行通知。</p>
+</li>
+<li><p>ConcreteObserver具体的观察者</p>
+</li>
+<li><p>每个观察者在接收到消息后的处理反应是不同的，各个观察者都有自己的处理逻辑。</p>
+</li>
+</ul>
+<h1 id="2-通用观察者实现"><a href="#2-通用观察者实现" class="headerlink" title="2. 通用观察者实现"></a>2. 通用观察者实现</h1><h2 id="2-1-被观察者"><a href="#2-1-被观察者" class="headerlink" title="2.1 被观察者"></a>2.1 被观察者</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Observable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义一个观察这数组</span></span><br><span class="line">    <span class="keyword">private</span> Vector&lt;Observer&gt; obVector = <span class="keyword">new</span> Vector&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//添加一个观察者</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addObserver</span><span class="params">(Observer observer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.obVector.add(observer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//删除一个观察者</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delObserver</span><span class="params">(Observer observer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.obVector.remove(observer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//通知所有观察者</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifyObservers</span><span class="params">(Book book)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (Observer observer : obVector) &#123;</span><br><span class="line">            observer.update(book);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-具体的被观察者"><a href="#2-2-具体的被观察者" class="headerlink" title="2.2 具体的被观察者"></a>2.2 具体的被观察者</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteSubject</span> <span class="keyword">extends</span> <span class="title">Subject</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 具体业务</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.notifyObservers();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-观察者"><a href="#2-3-观察者" class="headerlink" title="2.3 观察者"></a>2.3 观察者</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-具体观察者"><a href="#2-4-具体观察者" class="headerlink" title="2.4 具体观察者"></a>2.4 具体观察者</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteObserver</span> <span class="keyword">implements</span> <span class="title">Observer</span></span>&#123;</span><br><span class="line">    <span class="comment">//实现更新方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我已接收到消息&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-5-场景类"><a href="#2-5-场景类" class="headerlink" title="2.5 场景类"></a>2.5 场景类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建一个被观察者</span></span><br><span class="line">        ConcreteSubject subject = <span class="keyword">new</span> ConcreteSubject();</span><br><span class="line">        <span class="comment">// 创建一个观察者</span></span><br><span class="line">        Observer observer = <span class="keyword">new</span> ConcreteObserver();</span><br><span class="line">        <span class="comment">// 观察者观察被观察者</span></span><br><span class="line">        subject.addObserver(observer);</span><br><span class="line">        <span class="comment">// 观察者开始活动</span></span><br><span class="line">        subject.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-具体案例"><a href="#3-具体案例" class="headerlink" title="3. 具体案例"></a>3. 具体案例</h1><p>韩非子作为被观察者，李斯、王斯、刘斯作为观察者</p>
+<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/image-20200805160043017.png" alt="image-20200805160043017"></p>
+<h2 id="3-1-观察者接口"><a href="#3-1-观察者接口" class="headerlink" title="3.1 观察者接口"></a>3.1 观察者接口</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 一发现别人有动静，自己也要行动起来</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(String context)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-被观察者接口"><a href="#3-2-被观察者接口" class="headerlink" title="3.2 被观察者接口"></a>3.2 被观察者接口</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IHanFeiZi</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">haveBreakfast</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">haveFun</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Observable</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 增加一个观察者</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addObserver</span><span class="params">(Observer observer)</span></span>;</span><br><span class="line">    <span class="comment">// 删除一个观察者</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deteleObserver</span><span class="params">(Observer observer)</span></span>;</span><br><span class="line">    <span class="comment">// 通知观察者</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifyObservers</span><span class="params">(String context)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-被观察者实现类"><a href="#3-3-被观察者实现类" class="headerlink" title="3.3 被观察者实现类"></a>3.3 被观察者实现类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HanFeiZi</span> <span class="keyword">implements</span> <span class="title">Observable</span>, <span class="title">IHanFeiZi</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Observer&gt; observerList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 增加观察者</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addObserver</span><span class="params">(Observer observer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.observerList.add(observer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除观察者</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deteleObserver</span><span class="params">(Observer observer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.observerList.remove(observer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 通知所有的观察者</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifyObservers</span><span class="params">(String context)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (Observer observer : observerList) &#123;</span><br><span class="line">            observer.update(context);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 韩非子吃饭</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">haveBreakfast</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;韩非子：开始吃饭了&quot;</span>);</span><br><span class="line">        <span class="keyword">this</span>.notifyObservers(<span class="string">&quot;韩非子在吃饭&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 韩非子娱乐</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">haveFun</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;韩非子开始娱乐了&quot;</span>);</span><br><span class="line">        <span class="keyword">this</span>.notifyObservers(<span class="string">&quot;韩非子在娱乐&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-4-观察者实现类"><a href="#3-4-观察者实现类" class="headerlink" title="3.4 观察者实现类"></a>3.4 观察者实现类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Lisi</span> <span class="keyword">implements</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(String context)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;观察到韩非子活动&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Wangsi</span> <span class="keyword">implements</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(String context)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;观察到韩非子活动&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Liusi</span> <span class="keyword">implements</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(String context)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;观察到韩非子活动&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-5-场景类"><a href="#3-5-场景类" class="headerlink" title="3.5 场景类"></a>3.5 场景类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 创建三个观察者</span></span><br><span class="line">    Observer liSi = <span class="keyword">new</span> Lisi();</span><br><span class="line">    Observer wangSi = <span class="keyword">new</span> Wangsi();</span><br><span class="line">    Observer liuSi = <span class="keyword">new</span> Liusi();</span><br><span class="line">    <span class="comment">// 创建被观察者</span></span><br><span class="line">    HanFeiZi hanFeiZi = <span class="keyword">new</span> HanFeiZi();</span><br><span class="line">    <span class="comment">// 为韩非子增加观察者</span></span><br><span class="line">    hanFeiZi.addObserver(liSi);</span><br><span class="line">    hanFeiZi.addObserver(wangSi);</span><br><span class="line">    hanFeiZi.addObserver(liuSi);</span><br><span class="line">    </span><br><span class="line">    hanFeiZi.haveBreakfast();</span><br><span class="line">    hanFeiZi.haveFun();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-观察者模式的优缺点"><a href="#4-观察者模式的优缺点" class="headerlink" title="4. 观察者模式的优缺点"></a>4. 观察者模式的优缺点</h1><ul>
+<li><p>优点</p>
+<p>观察者和被观察者之间是抽象耦合</p>
+<p>建立了一套触发机制</p>
+</li>
+<li><p>缺点</p>
+<p>观察者太多会影响运行效率，一旦其中一个观察者卡壳，会影响到整体的执行效率，在这种情况下一般采取异步方式。</p>
+<p>多级触发会影响运行效率。</p>
+</li>
+</ul>
+<h1 id="5-观察者模式的应用："><a href="#5-观察者模式的应用：" class="headerlink" title="5. 观察者模式的应用："></a>5. 观察者模式的应用：</h1><p>文件系统：在一个目录下新建立一个文件，文件是被观察者，文件管理器是观察者</p>
+<p>猫鼠游戏：猫叫了一声，吓走老鼠，吵醒了人；猫是被观察者，老鼠和人是观察者</p>
+<h2 id="5-1-SpringBoot中基于接口的观察者模式"><a href="#5-1-SpringBoot中基于接口的观察者模式" class="headerlink" title="5.1 SpringBoot中基于接口的观察者模式"></a>5.1 SpringBoot中基于接口的观察者模式</h2><ol>
+<li>消息类型实体(需要继承<strong>ApplicationEvent</strong> )</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Event</span> <span class="keyword">extends</span> <span class="title">ApplicationEvent</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Event</span><span class="params">(Object source)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(source);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>创建监听者</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Listener</span> <span class="keyword">implements</span> <span class="title">ApplicationListener</span>&lt;<span class="title">Event</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@Async</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onApplicationEvent</span><span class="params">(Event event)</span> </span>&#123;</span><br><span class="line">        String s = event.getSource().toString();</span><br><span class="line">        System.out.println(<span class="string">&quot;旭旭宝宝面板:&quot;</span> + s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Listenercopy</span> <span class="keyword">implements</span> <span class="title">ApplicationListener</span>&lt;<span class="title">Event</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@Async</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onApplicationEvent</span><span class="params">(Event event)</span> </span>&#123;</span><br><span class="line">        String s = event.getSource().toString();</span><br><span class="line">        System.out.println(<span class="string">&quot;枪魂冰子面板:&quot;</span> + s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Listenercopy2</span> <span class="keyword">implements</span> <span class="title">ApplicationListener</span>&lt;<span class="title">Event</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@Async</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onApplicationEvent</span><span class="params">(Event event)</span> </span>&#123;</span><br><span class="line">        String s = event.getSource().toString();</span><br><span class="line">        System.out.println(<span class="string">&quot;剑舞红颜笑面板: &quot;</span> + s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>消息发布：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Publisher</span> <span class="keyword">implements</span> <span class="title">CommandLineRunner</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ApplicationEventPublisher applicationEventPublisher;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Publisher</span><span class="params">(ApplicationEventPublisher applicationEventPublisher)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.applicationEventPublisher = applicationEventPublisher;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            applicationEventPublisher.publishEvent(<span class="keyword">new</span> Event(<span class="string">&quot;XXX强化别云剑-无用 +16失败！&quot;</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Exception ignore) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">旭旭宝宝面板:XXX强化别云剑-无用 +<span class="number">16</span>失败！</span><br><span class="line">枪魂冰子面板:XXX强化别云剑-无用 +<span class="number">16</span>失败！</span><br><span class="line">剑舞红颜笑面板: XXX强化别云剑-无用 +<span class="number">16</span>失败！</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-2-SpringBoot基于注解的观察者模式"><a href="#5-2-SpringBoot基于注解的观察者模式" class="headerlink" title="5.2 SpringBoot基于注解的观察者模式"></a>5.2 SpringBoot基于注解的观察者模式</h2><p>事件监听不在用<code>ApplicationListener</code>接口，而是基于注解<code>@EventListener</code>驱动</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderCreateEventListenerAnnotation</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@EventListener</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">orderCreateEvent</span><span class="params">(OrderCreateEvent event)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;订单创建事件，@EventListener 注解驱动实现&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果在方法内没有使用事件对象，方法上也可以去掉它，但是要指定这个方法监听的是哪个事件类。如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderCreateEventListenerAnnotation</span> </span>&#123;</span><br><span class="line">    <span class="meta">@EventListener(OrderCreateEvent.class)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">orderCreateEvent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;订单创建事件，@EventListener 注解驱动实现&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    
+
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          zicair
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://zicair.github.io/2020/08/05/观察者模式/" title="观察者模式" target="_blank">https://zicair.github.io/2020/08/05/观察者模式/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/mysql//" class="article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
   </div>
-</article>
-  
+  <div class="article-info article-info-index">
     
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day2/" class="archive-article-date">
-        <time datetime="2020-06-23T07:23:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-23</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day2/">mysql笔记day2</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/mysql//" class="article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day1/" class="archive-article-date">
-        <time datetime="2020-06-22T16:10:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-23</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/06/23/mysql%E7%AC%94%E8%AE%B0day1/">mysql笔记day1</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/mysql//" class="article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/06/13/centos8%E5%AE%89%E8%A3%85MySQL%E5%B9%B6%E4%BD%BF%E7%94%A8SQLyog%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/" class="archive-article-date">
-        <time datetime="2020-06-13T14:22:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-13</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2020/06/13/centos8%E5%AE%89%E8%A3%85MySQL%E5%B9%B6%E4%BD%BF%E7%94%A8SQLyog%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/">centos8安装MySQL并使用SQLyog远程访问</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">centos</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Design Patterns</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/mysql//" class="article-tag-list-link color1">mysql</a>
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java/Design-Patterns//" class="article-tag-list-link color1">Design Patterns</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+    
 
     
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://zicair.github.io/2020/08/05/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/07/31/SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86(%E8%BF%90%E8%A1%8C)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SpringBoot启动原理(运行)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">1. 观察者模式的定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E9%80%9A%E7%94%A8%E8%A7%82%E5%AF%9F%E8%80%85%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">2. 通用观察者实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E8%A2%AB%E8%A7%82%E5%AF%9F%E8%80%85"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 被观察者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%85%B7%E4%BD%93%E7%9A%84%E8%A2%AB%E8%A7%82%E5%AF%9F%E8%80%85"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 具体的被观察者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E8%A7%82%E5%AF%9F%E8%80%85"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 观察者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E5%85%B7%E4%BD%93%E8%A7%82%E5%AF%9F%E8%80%85"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 具体观察者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-%E5%9C%BA%E6%99%AF%E7%B1%BB"><span class="toc-number">2.5.</span> <span class="toc-text">2.5 场景类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E5%85%B7%E4%BD%93%E6%A1%88%E4%BE%8B"><span class="toc-number">3.</span> <span class="toc-text">3. 具体案例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E8%A7%82%E5%AF%9F%E8%80%85%E6%8E%A5%E5%8F%A3"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 观察者接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E8%A2%AB%E8%A7%82%E5%AF%9F%E8%80%85%E6%8E%A5%E5%8F%A3"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 被观察者接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E8%A2%AB%E8%A7%82%E5%AF%9F%E8%80%85%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 被观察者实现类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E8%A7%82%E5%AF%9F%E8%80%85%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 观察者实现类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-%E5%9C%BA%E6%99%AF%E7%B1%BB"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 场景类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-number">4.</span> <span class="toc-text">4. 观察者模式的优缺点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%BA%94%E7%94%A8%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">5. 观察者模式的应用：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-SpringBoot%E4%B8%AD%E5%9F%BA%E4%BA%8E%E6%8E%A5%E5%8F%A3%E7%9A%84%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 SpringBoot中基于接口的观察者模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-SpringBoot%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3%E7%9A%84%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 SpringBoot基于注解的观察者模式</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+
+
+<!-- 《utteranc评论：基于github issue的评论系统 -->
+<div>
+    <section id="comments" class="comments">
+      <style>
+        .utterances{max-width: 95.5%;}
+      </style>
+        <script src="https://utteranc.es/client.js"
+                repo="zicair/zicair.github.io"
+                issue-term="title"
+                theme="github-light"
+                crossorigin="anonymous"
+                async>
+        </script>
+</script>
+  </section>
+</div>
+<!-- utteranc评论》 -->
+
+
+
+
+
+
+
+
+
+
+
+
 
 
           </div>
@@ -449,9 +555,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
