@@ -6,28 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://zicair.github.io">
-  <title>Java中的synchronized | Zicair&#39;s Blog</title>
+  <title>Tag: Halo | Zicair&#39;s Blog</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Java并发编程中的Synchronized的性质，并比较和Lock的区别。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Java中的synchronized">
-<meta property="og:url" content="https://zicair.github.io/2020/06/12/Java%E4%B8%AD%E7%9A%84synchronized/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Zicair&#39;s Blog">
+<meta property="og:url" content="https://zicair.github.io/tags/Halo/index.html">
 <meta property="og:site_name" content="Zicair&#39;s Blog">
-<meta property="og:description" content="Java并发编程中的Synchronized的性质，并比较和Lock的区别。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/Java%E4%B8%AD%E7%9A%84synchronized/Java%E4%B8%AD%E7%9A%84synchronized_1.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/Java%E4%B8%AD%E7%9A%84synchronized/Java%E4%B8%AD%E7%9A%84synchronized_2.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/Java%E4%B8%AD%E7%9A%84synchronized/Java%E4%B8%AD%E7%9A%84synchronized_3.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/Java%E4%B8%AD%E7%9A%84synchronized/Java%E4%B8%AD%E7%9A%84synchronized_4.png">
-<meta property="article:published_time" content="2020-06-12T13:12:44.000Z">
-<meta property="article:modified_time" content="2020-07-29T09:29:58.000Z">
 <meta property="article:author" content="zicair">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="Synchronized">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/Java%E4%B8%AD%E7%9A%84synchronized/Java%E4%B8%AD%E7%9A%84synchronized_1.png">
   
     <link rel="alternative" href="/atom.xml" title="Zicair&#39;s Blog" type="application/atom+xml">
   
@@ -184,139 +173,41 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Java中的synchronized" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
+            
+  
+  
     
-      <header class="article-header">
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	
+<a href="/2020/08/31/Halo%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E5%AD%A6%E5%AD%A6%E4%B9%A0-1/" class="archive-article-date">
+        <time datetime="2020-08-31T15:02:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-31</time>
+</a>
+
+        </div>
+    	 
   
-  
-    <h1 class="article-title" itemprop="name">
-      Java中的synchronized
+    <h1 itemprop="name">
+	
+	  <a class="archive-article-title" href="/2020/08/31/Halo%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E5%AD%A6%E5%AD%A6%E4%B9%A0-1/">Halo开源项目学学习-1</a>
+	
     </h1>
   
 
 
-  
-  
-        
-        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
-              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
-        </span>
-
-<a href="/2020/06/12/Java%E4%B8%AD%E7%9A%84synchronized/" class="archive-article-date">
-        <time datetime="2020-06-12T13:12:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-12</time>
-</a>
-
-  
-  
-    
-<div style="margin-top:10px;">
-  <span class="post-time">
-    <span class="post-meta-item-icon">
-      <!-- fonts.scss -->
-      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
-      <i class="icon-statistics"></i>
-      <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">973字</span>
-    </span>
-  </span>
-
-  <span class="post-time">
-    &nbsp; | &nbsp;
-    <span class="post-meta-item-icon">
-      <i class="icon-book icon"></i>
-      <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">3分</span>
-    </span>
-  </span>
-</div>
-
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>Java并发编程中的Synchronized的性质，并比较和Lock的区别。</p>
-<a id="more"></a>
-
-<h1 id="1-并发编程中的三个问题"><a href="#1-并发编程中的三个问题" class="headerlink" title="1. 并发编程中的三个问题"></a>1. 并发编程中的三个问题</h1><ul>
-<li>可见性：一个线程对共享变量的修改，另一个线程不能立即得到最新值。</li>
-<li>原子性：在一次或多次操作中，要么所有的操作都执行并且不受其他因素干扰而中断，要么所有的操作都不执行。</li>
-<li>有序性：是指程序中的代码执行顺序，Java在编译 时和运行时会对代码进行优化，导致程序最终的执行顺序不一定就是我们编写代码的顺序。</li>
-</ul>
-<h1 id="2-Java内存模型"><a href="#2-Java内存模型" class="headerlink" title="2. Java内存模型"></a>2. Java内存模型</h1><p>Java Memory Model （Java内存模型/JMM）是java虚拟机规范中定义的一种内存模型，java内存模型是标准化的，屏蔽掉了底层不同计算机的区别。</p>
-<p>java内存模型是一套规范，描述了java程序中各种变量（线程共享变量）的访问规则，以及在jvm中将变量存储到内存和从内存中读取变量这样的底层细节。具体如下：</p>
-<ul>
-<li><p>主内存：是所有线程共享的，都能访问的。所有的共享变量都存储在主内存。</p>
-</li>
-<li><p>工作内存：每一个线程都有自己的工作内存，工作内存只存储该线程对共享变量的副本。线程对变量的所有操作都必须在工作内存中完成，而不能直接读取主内存中的变量。不同线程之间也不能直接访问对方工作内存中的变量。</p>
-<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/Java%E4%B8%AD%E7%9A%84synchronized/Java%E4%B8%AD%E7%9A%84synchronized_1.png" alt="Java中的synchronized_1"></p>
-</li>
-</ul>
-<h1 id="3-synchronized的特性"><a href="#3-synchronized的特性" class="headerlink" title="3. synchronized的特性"></a>3. synchronized的特性</h1><ul>
-<li>可重入特性：同步代码块中可继续包含带有synchronized的同步代码块。锁对象有一个计数器（recursions变量）会记录线程获得几次锁。可重入特性可避免死锁且能更好地封装代码（同步代码块中可以直接调用带有synchronized的方法）。</li>
-<li>不可中断特性：一个线程获得锁后，另一个线程想要获得锁必须处于阻塞或者等待，如果第一个线程不释放锁，第二个线程会一直等待或阻塞，不可被中断。</li>
-</ul>
-<p>要看synchronized的原理，但是synchronized是一个关键字，看不到源码，可以将编译好的class文件进行反汇编。</p>
-<p>JDK自带的一个工具：<code>javap</code>，对字节码进行反汇编，查看字节码指令。</p>
-<p>在DOS命令行输入命令：<img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/Java%E4%B8%AD%E7%9A%84synchronized/Java%E4%B8%AD%E7%9A%84synchronized_2.png" alt="Java中的synchronized_2"></p>
-<p><code>-p</code>显示所有的包括私有的、<code>v</code>详细显示<img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/Java%E4%B8%AD%E7%9A%84synchronized/Java%E4%B8%AD%E7%9A%84synchronized_3.png" alt="Java中的synchronized_3"></p>
-<p><strong>由源码可以看出，synchronized出现异常时会自动释放锁：</strong></p>
-<p><img src="https://raw.githubusercontent.com/zicair/MyBlog/master/picbed/Java%E4%B8%AD%E7%9A%84synchronized/Java%E4%B8%AD%E7%9A%84synchronized_4.png" alt="Java中的synchronized_4"></p>
-<h1 id="4-synchronized和Lock的区别"><a href="#4-synchronized和Lock的区别" class="headerlink" title="4. synchronized和Lock的区别"></a>4. synchronized和Lock的区别</h1><ol>
-<li>synchronized是关键字，而Lock是一个接口；</li>
-<li>synchronized会自动释放锁，而Lock必须手动释放锁；</li>
-<li>synchronized是不可中断的，Lock可以中断（lock.tryLock）也可以不中断（lock）；</li>
-<li>通过Lock可以知道线程有没有拿到锁（lock.tryLock返回Boolean值），而synchronized不能；</li>
-<li>synchronized可以锁住方法和代码块，而Lock只能锁住代码块；</li>
-<li>Lock可以使用读锁提高多线程读效率（Lock的实现类ReentrantReadWriteLock）；</li>
-<li>synchronized是非公平锁，释放锁时随机唤醒。Lock = ReentrantLock（带参）可以控制是否是公平的；</li>
-</ol>
-<h1 id="5-使用synchronized的建议："><a href="#5-使用synchronized的建议：" class="headerlink" title="5. 使用synchronized的建议："></a>5. 使用synchronized的建议：</h1><ul>
-<li><p><strong>减少synchronized的范围</strong></p>
-<p>同步代码块中尽量短，减少同步代码块中代码的执行时间，减少锁的竞争。</p>
-</li>
-<li><p><strong>降低synchronized锁的粒度</strong></p>
-<p>将一个锁拆分为多个锁提高并发度。<code>Hashtable</code>锁定整个哈希表，一次只能一个线程对其操作，效率低；<code>ConcurrentHashMap</code>局部锁定，只锁定当前桶，其他线程可以访问别的桶中数据。</p>
-</li>
-<li><p><strong>读写分离</strong></p>
-<p>读取时不加锁，写入和删除时加锁。</p>
-<p><code>ConcurrentHashMap</code>， <code>CopyOnWriteArrayList</code>和<code>CopyOnWriteArraySet</code></p>
-</li>
-</ul>
-<h1 id="6-扩展："><a href="#6-扩展：" class="headerlink" title="6. 扩展："></a>6. 扩展：</h1><p><code>java.util.Hashtable</code> and <code>Collections.synchronizedMap(new HashMap())</code> are synchronized. But <a href="ConcurrentHashMap.html"><code>ConcurrentHashMap</code></a> is “concurrent”. A concurrent collection is thread-safe, but not governed by a single exclusion lock.</p>
-
-    
-
-    
-
-    
-    <div class="declare"> 
-      <ul class="post-copyright">
-        <li>
-          <strong>本文作者：</strong>
-          zicair
-        </li>
-        <li>
-          <strong>本文链接：</strong>
-          <a href="https://zicair.github.io/2020/06/12/Java中的synchronized/" title="Java中的synchronized" target="_blank">https://zicair.github.io/2020/06/12/Java中的synchronized/</a>
-        </li>
-        
-        <li>
-          <strong>版权声明： </strong>
+        <div class="article-info info-on-right">
           
-          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
-        </li>
-        
-      </ul>
-    </div>
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -326,172 +217,40 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Synchronized</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Halo</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SpringBoot</a>
         		</li>
       		
 		</ul>
 	</div>
 
-    
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/Synchronized//" class="article-tag-list-link color3">Synchronized</a>
+        			<a href="/categories/SpringBoot//" class="article-tag-list-link color1">SpringBoot</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-    
-
-    
-    
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a> -->
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://zicair.github.io/2020/06/12/Java%E4%B8%AD%E7%9A%84synchronized/" alt="微信分享二维码"> -->
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-
-    
-    <div class="clearfix"></div>
-  </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-<nav id="article-nav">
-  
-    <a href="/2020/06/13/centos8%E5%AE%89%E8%A3%85MySQL%E5%B9%B6%E4%BD%BF%E7%94%A8SQLyog%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          centos8安装MySQL并使用SQLyog远程访问
-        
-      </div>
-    </a>
   
   
-    <a href="/2020/06/12/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">单例模式</div>
-      <i class="icon-circle-right"></i>
-    </a>
+    </div></section>
   
-</nav>
 
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84%E4%B8%89%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">1. 并发编程中的三个问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">2. Java内存模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-synchronized%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-number">3.</span> <span class="toc-text">3. synchronized的特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-synchronized%E5%92%8CLock%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">4.</span> <span class="toc-text">4. synchronized和Lock的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E4%BD%BF%E7%94%A8synchronized%E7%9A%84%E5%BB%BA%E8%AE%AE%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">5. 使用synchronized的建议：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E6%89%A9%E5%B1%95%EF%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">6. 扩展：</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-
-
-<!-- 《utteranc评论：基于github issue的评论系统 -->
-<div>
-    <section id="comments" class="comments">
-      <style>
-        .utterances{max-width: 93%;}
-      </style>
-        <script src="https://utteranc.es/client.js"
-                repo="zicair/zicair.github.io"
-                issue-term="title"
-                theme="github-light"
-                crossorigin="anonymous"
-                async>
-        </script>
-</script>
-  </section>
-</div>
-<!-- utteranc评论》 -->
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
 
           </div>
@@ -532,9 +291,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
